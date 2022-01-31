@@ -14,7 +14,7 @@ Our client asked us to create an image understanding tool for their internal use
 ### Language
 * [TypeScript](https://www.typescriptlang.org/) - We choose TypeScript because it makes JavaScript to a type-safe language. 
 It would be great in refactoring and catching error before runtime when the project growing up.
-All our framework / library choose would be TypeScript / typed first.  
+Also, we will pick TypeScript based library first because they're more stable in general.  
 * [Rust](https://www.rust-lang.org/) - Since this project is about image processing, and it's a heavy cpu loading function which can be very slow in JavaScript, so we choose Rust for our second language.
 Rust can be binding to Node.js via [Neon](https://neon-bindings.com/), and can also be compiled to WASM and work in browser to resolve performance issue in both side.
 Also, it's useful to parse a large dataset quickly.
@@ -52,7 +52,8 @@ We choose Nest rather than Express or Fastify because it has more strict struct,
 We don't use GraphQL in this project because it has very limited endpoints and only a few types of return format, so we can't get benefit from GraphQL.
 
 ## Architecture
-We have 2 plans for the feature requests, depends on the situation.
+We have 2 plans for the feature requests, depends on the situation. 
+We assume the [AI algorithm A](./QUIZ.md#Algorithm A) is a Tensorflow-based trained module, and the [AI algorithm B](./QUIZ.md#Algorithm B) is a image digest algorithm like [pHash](https://www.phash.org/).
 
 ### Plan A
 In plan A, we put the image processor in the client side as a WASM library.
@@ -65,7 +66,7 @@ In addition, we can't protect the module because it loaded into user's browser.
 ### Plan B
 In plan B, we process the image in the server side. That's a more common solution.
 In this situation, the image processor can be written in Python or many common languages. 
-If we have high peek requirement, we can put the image processor to the serverless services like GCP Cloud Function / Cloud Run or AWS Lambda.
+If we have high peak requirement, we can put the image processor to the serverless services like GCP Cloud Function / Cloud Run or AWS Lambda.
 Otherwise, a k8s cluster would easier to control the environment (and much cheaper).
 
 ## Testing & QA
@@ -76,7 +77,7 @@ We don't need strict TDD, but each function should have at least one test case (
 
 ### Functional test
 Each module should have their own test.
-Functional tests can keep module has same I/O when we refactor it (for improve performance or cleanup implement).
+Functional tests can keep module has same I/O when we refactor it (for improve performance or cleanup implement). 
 More functional tests we have, we can be easier to refactor or improve the product.
 
 ### E2E test
